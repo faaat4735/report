@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '../init.inc.php';
+require_once __DIR__ . '/../init.inc.php';
 
 $date = $_GET['date'] ?? date('Y-m-d', strtotime('-1 day'));
 

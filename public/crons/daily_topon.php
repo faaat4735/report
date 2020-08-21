@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '../init.inc.php';
+require_once __DIR__ . '/../init.inc.php';
 // 获取topon变现数据
 
 $startDate = strtotime('-2 day');
