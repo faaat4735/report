@@ -27,7 +27,7 @@ Class ReportController extends Controller {
 
         $list = array();
         if ($totalCount) {
-            $sql = "SELECT * FROM r_report $where ORDER BY report_date DESC LIMIT " . $this->page;
+            $sql = "SELECT * FROM r_report $where ORDER BY report_date DESC, new_user_ocean DESC LIMIT " . $this->page;
             $list = $this->locator->db->getAll($sql, $dataArr);
         }
         return array(
