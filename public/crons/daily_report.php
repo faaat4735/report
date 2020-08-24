@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../init.inc.php';
 // 获取topon变现数据
 
-$startDate = $argv['1'] ?? strtotime('-2 day');
+$startDate = isset($argv[1]) ? strtotime($argv[1]) : strtotime('-2 day');
 $endDate =  max(strtotime('-30 day'), strtotime('20200815'));
 
 
@@ -23,7 +23,7 @@ while (true) {
         if ($toponInfo) {
             $roiVal = $reportInfo['convert_cost'] ? ($toponInfo[$ltv] / $reportInfo['convert_cost']) : 0;
             $sql = 'SELECT COUNT(ad_id) FROM r_report WHERE report_date = ? AND ad_id = ?';
-            if ($locator->db->getOne($reportDate, $reportInfo['ad_id'])) {
+            if ($locator->db->getOne($sql, $reportDate, $reportInfo['ad_id'])) {
                 $sql = 'UPDATE r_report SET ' . $roi . '  = ?, new_user_topon = ?, new_user_ocean = ? WHERE report_date = ? AND ad_id = ?';
                 $locator->db->exec($sql, $roiVal, $toponInfo['new_user'], $reportInfo['convert'], $reportDate, $reportInfo['ad_id']);
             } else {
