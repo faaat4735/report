@@ -22,6 +22,7 @@ while (true) {
 //                var_dump($toponInfo);
 //                echo $ltv . ':' . $toponInfo->$ltv . PHP_EOL;
                 $sql = 'SELECT COUNT(ad_id) FROM r_topon WHERE report_date = ? AND ad_id = ?';
+                echo $sql;
                 if ($locator->db->getOne($sql, date('Y-m-d',$startDate), $campaignId)) {
                     $sql = 'UPDATE r_topon SET ' . $ltv . ' = ?, new_user = ? WHERE report_date = ? AND ad_id = ?';
                     $locator->db->exec($sql, $toponInfo->$ltv, $toponInfo->new_user, date('Y-m-d',$startDate), $campaignId);
