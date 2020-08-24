@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../init.inc.php';
 // 获取topon变现数据
 
-$startDate = strtotime('-2 day');
+$startDate = $_GET['date'] ?? strtotime('-2 day');
 $endDate =  max(strtotime('-30 day'), strtotime('20200815'));
 
 
@@ -21,8 +21,14 @@ while (true) {
             if ($campaignId) {
 //                var_dump($toponInfo);
 //                echo $ltv . ':' . $toponInfo->$ltv . PHP_EOL;
-                $sql = 'REPLACE INTO r_topon SET report_date = ?, ad_id = ?, ' . $ltv . ' = ?, new_user = ?';
-                $locator->db->exec($sql, date('Y-m-d',$startDate), $campaignId, $toponInfo->$ltv, $toponInfo->new_user);
+                $sql = 'SELECT COUNT(ad_id) FROM r_topon WHERE report_date = ? AND ad_id = ?';
+                if ($locator->db->getOne($sql, date('Y-m-d',$startDate), $campaignId)) {
+                    $sql = 'UPDATE r_topon SET ' . $ltv . ' = ?, new_user = ? WHERE report_date = ? AND ad_id = ?';
+                    $locator->db->exec($sql, $toponInfo->$ltv, $toponInfo->new_user, date('Y-m-d',$startDate), $campaignId);
+                } else {
+                    $sql = 'INSERT INTO r_topon SET report_date = ?, ad_id = ?, ' . $ltv . ' = ?, new_user = ?';
+                    $locator->db->exec($sql, date('Y-m-d',$startDate), $campaignId, $toponInfo->$ltv, $toponInfo->new_user);
+                }
                 // 保存topon变现数据
 //                var_dump($toponInfo);
             }
