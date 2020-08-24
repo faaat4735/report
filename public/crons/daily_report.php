@@ -38,6 +38,7 @@ while (true) {
     }
     $i++;
 }
+echo 'done';
 exit;
 
 

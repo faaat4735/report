@@ -26,4 +26,5 @@ if ($advertiserList) {
 //    echo $sql;
     $locator->db->exec($sql);
 }
+echo 'done';
 // 聚合 推广和变现数据
