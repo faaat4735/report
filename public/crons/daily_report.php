@@ -3,7 +3,7 @@
 require_once __DIR__ . '/../init.inc.php';
 // 获取topon变现数据
 
-$startDate = $argv['date'] ?? strtotime('-2 day');
+$startDate = $argv['1'] ?? strtotime('-2 day');
 $endDate =  max(strtotime('-30 day'), strtotime('20200815'));
 
 
